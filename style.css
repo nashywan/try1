@@ -1,129 +1,273 @@
+/* Reset and basics */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  margin: 0; padding: 0; box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #f8fff4;
-  overflow-x: hidden;
+  background: #f0f9f7;
   color: #333;
-  position: relative;
-}
-
-.background-3d {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  perspective: 800px;
-  overflow: hidden;
-}
-
-.cube {
-  width: 200px;
-  height: 200px;
-  background: linear-gradient(135deg, #a8e063, #56ab2f);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  animation: spin 15s linear infinite;
-  transform-style: preserve-3d;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotateX(0deg) rotateY(0deg) translate(-50%, -50%);
-  }
-  100% {
-    transform: rotateX(360deg) rotateY(360deg) translate(-50%, -50%);
-  }
-}
-
-header {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
-  justify-content: center;
-  padding: 3rem 1rem;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
 .container {
-  max-width: 1000px;
-  margin: auto;
-  padding: 1rem;
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-h1 {
-  font-size: 3rem;
-  color: #388e3c;
+/* Navbar */
+.navbar {
+  background: #1e7f37;
+  padding: 1rem 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.hook {
-  font-size: 1.3rem;
-  color: #4caf50;
-  margin: 1rem 0 2rem;
-  font-style: italic;
+.navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
 }
 
-.btn-utama {
-  padding: 0.8rem 2rem;
-  background-color: #66bb6a;
-  color: white;
+.navbar ul li a {
+  color: #d1e8d1;
   text-decoration: none;
-  border-radius: 30px;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-.btn-utama:hover {
-  background-color: #43a047;
+  font-weight: 600;
+  padding: 8px 15px;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.produk {
-  padding: 4rem 1rem;
-  background-color: #f1fdf3;
+.navbar ul li a.active,
+.navbar ul li a:hover {
+  background: #70c36b;
+  color: #fff;
+}
+
+.navbar ul li a::before {
+  content: "🍃";
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease, left 0.3s ease;
+}
+
+.navbar ul li a:hover::before {
+  left: 8px;
+  opacity: 1;
+}
+
+/* Header */
+header {
+  height: 70vh;
+  background: linear-gradient(135deg, #a0d468 0%, #4a7c2f 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
   text-align: center;
+  perspective: 1200px;
+  position: relative;
+}
+
+header .container {
+  max-width: 700px;
+  transform-style: preserve-3d;
+  animation: float3d 10s ease-in-out infinite;
+}
+
+header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 0.3rem;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+}
+
+header .hook {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+}
+
+/* Button surprise effect */
+.btn-utama {
+  background: #4a7c2f;
+  color: #fff;
+  padding: 14px 28px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  box-shadow: 0 5px 15px rgba(74,124,47,0.4);
+}
+
+.btn-utama:hover {
+  background: #70c36b;
+  box-shadow: 0 8px 20px rgba(112,195,107,0.7);
+}
+
+/* Surprise animations */
+.btn-tebu-jump:hover::after {
+  content: "🌱";
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  font-size: 1.8rem;
+  transform: translateX(-50%);
+  animation: jumpLeaf 0.8s ease forwards;
+}
+
+@keyframes jumpLeaf {
+  0% { top: -30px; opacity: 1; }
+  100% { top: -70px; opacity: 0; }
+}
+
+.btn-tebu-grow:hover {
+  animation: growTebu 0.6s ease forwards;
+}
+
+@keyframes growTebu {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* 3D floating animation */
+@keyframes float3d {
+  0%, 100% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: rotateX(8deg) rotateY(8deg);
+  }
+}
+
+/* Sections */
+section {
+  padding: 60px 0;
+}
+
+h2 {
+  color: #1e7f37;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 2.8rem;
+  letter-spacing: 1px;
 }
 
 .cards {
   display: flex;
+  gap: 30px;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 2rem;
-  margin-top: 2rem;
 }
 
 .card {
-  background: white;
-  padding: 2rem;
+  background: #d9f0d9;
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  max-width: 300px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  padding: 25px;
+  width: 280px;
+  text-align: center;
   transition: transform 0.3s ease;
+  cursor: default;
+  position: relative;
 }
+
 .card:hover {
   transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
+
 .card h3 {
-  color: #2e7d32;
-  margin-bottom: 1rem;
+  margin-bottom: 15px;
+  color: #317823;
 }
 
-.hubungi {
-  background: #d4f4c2;
-  padding: 3rem 1rem;
-  text-align: center;
+.card p {
+  font-size: 1rem;
+  color: #2a2a2a;
 }
 
+/* Additional hover background surprise */
+.card-tebu-leaf:hover::after {
+  content: "🍃";
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0.15;
+  top: 10px;
+  right: 15px;
+  pointer-events: none;
+  animation: leafFloat 3s ease-in-out infinite;
+}
+
+@keyframes leafFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg);}
+  50% { transform: translateY(-15px) rotate(15deg);}
+}
+
+/* Testimonial */
+.testimonial-cards {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.testimonial {
+  background: #f5fef5;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 300px;
+  font-style: italic;
+  color: #265326;
+  position: relative;
+  transition: background 0.3s ease;
+  cursor: default;
+}
+
+.testimonial h4 {
+  margin-top: 15px;
+  text-align: right;
+  font-weight: 700;
+  color: #1e7f37;
+}
+
+/* Hover effect with tebu bg */
+.card-tebu-bg-hover:hover {
+  background: #c3e8bb;
+  box-shadow: 0 8px 25px rgba(74,124,47,0.4);
+}
+
+/* Footer */
 footer {
-  background: #2e7d32;
-  color: white;
+  background: #1e7f37;
+  color: #d1e8d1;
   text-align: center;
-  padding: 1rem;
+  padding: 20px 0;
+  margin-top: 40px;
   font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cards, .testimonial-cards {
+    flex-direction: column;
+    align-items: center;
+  }
 }
